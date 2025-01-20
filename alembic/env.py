@@ -8,7 +8,6 @@ from alembic import context
 from app.db.database import Base
 
 
-
 # Load environment variables from .env file
 load_dotenv()
 

@@ -63,5 +63,3 @@ local_settings.py
 
 # Docker
 .docker/
-
-alembic.ini

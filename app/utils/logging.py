@@ -36,6 +36,7 @@ config = {
 # Loguru 설정 적용
 logger.configure(**config)
 
+
 # FastAPI 로깅과 통합
 class InterceptHandler(logging.Handler):
     def emit(self, record):
@@ -49,26 +50,28 @@ class InterceptHandler(logging.Handler):
         logger_opt = logger.opt(depth=6, exception=record.exc_info)
         logger_opt.log(record.levelname, record.getMessage())
 
+
 # FastAPI 로깅 설정
 def setup_logging():
     # 기존 로거 제거
     logging.getLogger().handlers = []
-    
+
     # 로깅 핸들러 설정
     logging.basicConfig(handlers=[InterceptHandler()], level=0, force=True)
-    
+
     # 특정 모듈의 로깅 레벨 설정
     logging.getLogger("uvicorn.access").handlers = [InterceptHandler()]
     logging.getLogger("uvicorn.error").handlers = [InterceptHandler()]
 
+
 # 로거 가져오기 함수
-def get_logger(name: str) -> logger:
+def get_logger(name: str):
     """
     지정된 이름으로 로거를 반환합니다.
-    
+
     Args:
         name (str): 로거 이름 (보통 __name__ 사용)
-        
+
     Returns:
         logger: 설정된 로거 인스턴스
     """

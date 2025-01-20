@@ -6,7 +6,7 @@ prompt_template = """
     回答の例を参照して形式を守って回答してください。
     回答の例:{output_example}
 
-    質問: {question}
+    質問: {message}
     回答: 
 """
 
