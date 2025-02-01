@@ -35,6 +35,9 @@ class App:
         sio = socketio.AsyncServer(
             async_mode="asgi",
             cors_allowed_origins="*",
+            ping_timeout=60,
+            ping_interval=25,
+            engineio_logger=True,
         )
 
         self.app.mount("/socket.io", socketio.ASGIApp(sio))
