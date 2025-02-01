@@ -37,7 +37,7 @@ class App:
             cors_allowed_origins="*",
         )
 
-        self.app.mount("/", socketio.ASGIApp(sio))
+        self.app.mount("/ws", socketio.ASGIApp(sio))
 
         # 연결 이벤트 핸들러
         @sio.event
