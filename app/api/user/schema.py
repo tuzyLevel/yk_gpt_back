@@ -16,7 +16,7 @@ class UserSchema(BaseModel):
 
 
 class RequestPostCheckUser(BaseModel):
-    id: str = Field(..., description="user_id")
+    email: str = Field(..., description="user_email")
 
 
 class ResponsePostCheckUser(BaseModel):

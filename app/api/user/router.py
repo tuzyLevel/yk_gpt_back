@@ -16,7 +16,7 @@ async def request_check_user(
     req: RequestPostCheckUser,
     db: Session = Depends(get_db),
 ) -> ResponsePostCheckUser:
-    user_info = get_user_by_id(req.id, db=db)
+    user_info = get_user_by_id(req.email, db=db)
     if user_info is not None:
         return ResponsePostCheckUser(
             existed=True, data=UserSchema.model_validate(user_info)
