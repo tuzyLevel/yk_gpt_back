@@ -1,10 +1,11 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from app.services.chat.base import chat, get_chat_by_id
 from app.services.title import get_titles_by_email
 from app.core.swagger_auth import get_current_username
 from app.db.database import get_db
+from fastapi.responses import JSONResponse
 
 
 from .schema import RequestChat, ResponseChat, ResponseGetTitles, TitleSchema
@@ -16,8 +17,11 @@ chat_router = APIRouter(
 
 
 @chat_router.post("", dependencies=[Depends(get_current_username)])
-async def request_chat(req: RequestChat) -> ResponseChat:
-    return await chat(question=req.question)
+async def request_chat(req: RequestChat):
+    try:
+        return await chat(question=req.question)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 @chat_router.get("/{chat_id}", dependencies=[Depends(get_current_username)])

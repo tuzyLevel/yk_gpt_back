@@ -1,11 +1,11 @@
 from ..ai.chains.chain import chain
 from sqlalchemy.orm import Session
 from app.db.models.chat.chat import Chat
-from typing import TypedDict, List
+from ..ai.graphs.graphs import run_chat
 
 
 async def chat(question: str):
-    return chain.invoke({"message": question})
+    return await run_chat(message=question)
 
 
 async def get_chat_by_id(chat_id: str, db: Session):
